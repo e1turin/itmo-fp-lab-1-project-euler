@@ -1,2 +1,6 @@
-# itmo-fp-lab-1-projecteuler
-ITMO Functional Programming Course the 1st Lab Work
+# Лабораторная работа №1 по курсу «Функциональное программирование»
+
+Текст задания: [TASK.md](./TASK.md)
+
+# Комментарии по выполнению
+
