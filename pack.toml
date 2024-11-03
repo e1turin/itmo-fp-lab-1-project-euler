@@ -3,3 +3,9 @@ type = "local"
 path = "task-13"
 ipkg = "task-13.ipkg"
 test = "test/task-13-test.ipkg"
+
+[custom.all.task-18]
+type = "local"
+path = "task-18"
+ipkg = "task-18.ipkg"
+test = "test/task-18-test.ipkg"
