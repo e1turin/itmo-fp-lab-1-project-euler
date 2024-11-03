@@ -1,0 +1,5 @@
+[custom.all.task-13]
+type = "local"
+path = "task-13"
+ipkg = "task-13.ipkg"
+test = "test/task-13-test.ipkg"
