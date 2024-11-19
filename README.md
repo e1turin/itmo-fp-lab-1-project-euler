@@ -29,3 +29,15 @@ Idris2 ведет себя странно и в MSYS он не хочет соб
 - Удалять установленные пакеты можно с помощью `pack remove lib-pkg` (для библиотек)
   или `pack remove-app app-pkg` (для приложений).
 - еще есть какой-то нюанс с `package collection`...
+
+Тестить и смотреть справку удобно с помощью отдельно запущенного REPL:
+```sh
+docker exec -ai dev_container_name /bin/bash # attach to running container in separate terminal
+cd workspace/itmo-fp                         # go to project directory
+#pack --with-ipkg=task-13/task-13.ipkg repl   # start repl session for specific package -- can't load source file by somehow...
+pack repl task-13/src/Main.idr  # start repl on specific source file
+```
+
+Для Idris2 есть неофициальный Style Guide:
+- https://github.com/stefan-hoeck/idris2-style-guide (от создателя `pack`)
+- или другой https://github.com/expede/idris-styleguide.

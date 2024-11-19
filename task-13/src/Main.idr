@@ -1,5 +1,12 @@
 module Main
 
+import Numbers
+import Data.List.Lazy
+
+task13 : Integer
+task13 = sum numbers
+
 main : IO ()
-main = do putStrLn "Hello from Idris2!"
-          putStrLn "The 13 task greating"
+main = let 
+  result = task13 in 
+  putStrLn (substr 0 10 (show result))
