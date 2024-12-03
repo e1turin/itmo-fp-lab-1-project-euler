@@ -42,16 +42,14 @@ task13 InfiniteList = ?infiniteListSolution givenNumbers
 
 
 main : IO ()
-main = let
-  solution = Folding
-  result = task13 solution
-  strRes = substr 0 10 (show result)
-  strAns = show first10DigitsOfSum
-  in do
-    putStr strRes
-    if strRes == strAns
-      then putStr " = "
-      else putStr " /= "
-    putStrLn strAns
+main = do
+  let solution = Folding
+      result = task13 solution
+      strRes = substr 0 10 (show result)
+      strAns = show first10DigitsOfSum
+
+  putStr strRes
+  putStr (if strRes == strAns then " = " else " /= ")
+  putStrLn strAns
 
 
