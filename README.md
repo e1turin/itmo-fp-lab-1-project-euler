@@ -14,7 +14,7 @@ Idris2 ведет себя странно и в MSYS он не хочет соб
 образ Docker с настроенным окружением в виде готового `pack` и установленным
 `idris2-lsp` (см. [docker/Dockerfile.idris2-pack-lsp](./docker/Dockerfile.idris2-pack-lsp)).
 
-Пакетный менеджер `pack` достает информацию о пакетах из системы или из конфигурации в проекте – `pack.toml`, без нее не известно как соотносится имя с пакетом. В конфигурации проекта может указывается путь до локальной конфигурации пакета, где уже описаны зависимости этого пакета и прочее.  
+Пакетный менеджер `pack` достает информацию о пакетах из системы или из конфигурации в проекте – `pack.toml`, без нее не известно как соотносится имя с пакетом. В конфигурации проекта может указывается путь до локальной конфигурации пакета, где уже описаны зависимости этого пакета и прочее.
 
 Файлы `.ipkg` позволяют указать в качестве зависимости (`deps`) другие пакеты,
 но чтобы это работало, они должны быть "установлены". Список установленных
@@ -41,3 +41,13 @@ pack repl task-13/src/Main.idr  # start repl on specific source file
 Для Idris2 есть неофициальный Style Guide:
 - https://github.com/stefan-hoeck/idris2-style-guide (от создателя `pack`)
 - или другой https://github.com/expede/idris-styleguide.
+
+Так же можно использовать готовый `.editorconfig` (с расширением VS Code
+`EditorConfig.EditorConfig`) из репозитория Idris2:
+```sh
+wget https://raw.githubusercontent.com/idris-lang/Idris2/refs/heads/main/.editorconfig
+# or
+curl -L -O https://raw.githubusercontent.com/idris-lang/Idris2/refs/heads/main/.editorconfig
+# or
+echo -e 'GET /idris-lang/Idris2/refs/heads/main/.editorconfig HTTP/1.0\nHost: raw.githubusercontent.com\n\n' | openssl s_client -quiet -connect raw.githubusercontent.com:443 2>/dev/null | sed '0,/^\s*$/d' > .editorconfig
+```

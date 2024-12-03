@@ -2,7 +2,10 @@ module Numbers
 
 import Data.List.Lazy
 
-export
+public export
+data Numbers : Type where
+  GivenNumbers : (nums : LazyList Integer) -> Numbers
+
 numbers : LazyList Integer
 numbers = 
   [ 37107287533902102798797998220837590246510135740250
@@ -110,3 +113,7 @@ numbers =
 export
 first10DigitsOfSum : Integer
 first10DigitsOfSum = 5537376230
+
+export
+givenNumbers : Numbers
+givenNumbers = GivenNumbers numbers
