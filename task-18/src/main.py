@@ -1,16 +1,4 @@
-module Triangle
-
-import Data.Vect
-
-public export
-data Triangle : Type where
-  GivenTriangle : (nums: Vect 15 (Vect 15 Integer)) -> Triangle
-
-
-export
-triangle : Vect 15 (Vect 15 Integer)
-triangle =
-  [
+triangle = [
     [75,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0]
   , [95, 64,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0]
   , [17, 47, 82,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0]
@@ -28,10 +16,24 @@ triangle =
   , [ 4, 62, 98, 27, 23,  9, 70, 98, 73, 93, 38, 53, 60,  4, 23]
   ]
 
-export
-givenTriangle : Triangle
-givenTriangle = GivenTriangle triangle
+def main():
+    dp = [[0] * (len(triangle[0] + 1))]
+    dp += [[0] + r[:] for r in triangle]
 
-export
-maxPath : Integer
-maxPath = 1074
+    for r in dp:
+        print(r)
+
+    for i in range(1, len(dp)):
+        for j in range(1, len(dp[i])):
+            dp[i][j] += max(dp[i-1][j], dp[i-1][j-1])
+
+    for r in dp:
+        print(r)
+
+    print(max(dp[-1]))
+
+
+
+if __name__ == "__main__":
+    main()
+
