@@ -30,7 +30,7 @@ recursiveSolution (GivenTriangle nums) = go nums 0 0
             ((Yes _), (Yes _)) =>
               let x = xss |> index (natToFinLT i) |> index (natToFinLT j)
                   left = assert_total $ go xss (i + 1) j
-                  right = assert_total $ go xss (i + i) (j + 1)
+                  right = assert_total $ go xss (i + 1) (j + 1)
                 in x + (max left right)
             (_, _) => 0
 
