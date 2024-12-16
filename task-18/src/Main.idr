@@ -14,29 +14,25 @@ data FPSolution
   | InfiniteList
 
 
-
 recursiveSolution : Triangle -> Integer
 recursiveSolution (GivenTriangle nums) = go nums 0 0
   where
-    go : {depth : Nat}
-      -> {width : Nat}
-      -> Vect depth (Vect width Integer)
-      -> (i: Nat)
-      -> (j: Nat)
-      -> Integer
+    go : {depth : Nat} ->
+         {width : Nat} ->
+         Vect depth (Vect width Integer) ->
+         (i: Nat) ->
+         (j: Nat) ->
+         Integer
     go {depth = 0} _ _ _ = 0
     go {width = 0} _ _ _ = 0
     go {depth = n} {width = m} xss i j
-      = let prfFinI = natToFin i n
-            prfFinJ = natToFin j m
-          in case (prfFinI, prfFinJ) of
-              (Nothing, _) => 0
-              (_, Nothing) => 0
-              (Just fi, Just fj) =>
-                let x = (index fj (index fi xss))
-                    left = assert_total (go xss (i + 1) j)
-                    right = assert_total (go xss (i + i) (j + 1))
-                  in x + (max left right)
+      = case (i `isLT` n, j `isLT` m) of
+            ((Yes _), (Yes _)) =>
+              let x = xss |> index (natToFinLT i) |> index (natToFinLT j)
+                  left = assert_total $ go xss (i + 1) j
+                  right = assert_total $ go xss (i + i) (j + 1)
+                in x + (max left right)
+            (_, _) => 0
 
 
 task18 : (solution: FPSolution) -> Integer
