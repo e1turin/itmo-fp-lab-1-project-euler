@@ -13,9 +13,21 @@ data FPSolution
   | Loops
   | InfiniteList
 
+indexMatrixByNat : {hight : Nat} ->
+                   {width : Nat} ->
+                   Vect hight (Vect width Integer) ->
+                   (i: Nat) ->
+                   (j: Nat) ->
+                   Maybe Integer
+indexMatrixByNat {hight = 0} _ _ _ = Nothing
+indexMatrixByNat {width = 0} _ _ _ = Nothing
+indexMatrixByNat {hight = n} {width = m} xss i j
+  = case (i `isLT` n, j `isLT` m) of
+         ((Yes _), (Yes _)) => Just $ xss |> index (natToFinLT i) |> index (natToFinLT j)
+         (_, _) => Nothing
 
 recursiveSolution : Triangle -> Integer
-recursiveSolution (GivenTriangle nums) = go nums 0 0
+recursiveSolution (GivenTriangleMatrix nums) = go nums 0 0
   where
     go : {depth : Nat} ->
          {width : Nat} ->
@@ -23,25 +35,23 @@ recursiveSolution (GivenTriangle nums) = go nums 0 0
          (i: Nat) ->
          (j: Nat) ->
          Integer
-    go {depth = 0} _ _ _ = 0
-    go {width = 0} _ _ _ = 0
-    go {depth = n} {width = m} xss i j
-      = case (i `isLT` n, j `isLT` m) of
-            ((Yes _), (Yes _)) =>
-              let x = xss |> index (natToFinLT i) |> index (natToFinLT j)
-                  left = assert_total $ go xss (i + 1) j
-                  right = assert_total $ go xss (i + 1) (j + 1)
-                in x + (max left right)
-            (_, _) => 0
+    go {depth} {width} xss i j
+      = let Just x = indexMatrixByNat xss i j | Nothing => 0
+            left = assert_total (go xss (i + 1) j)
+            right = assert_total (go xss (i + 1) (j + 1))
+          in x + max left right
 
+
+foldingSolution : Triangle -> Integer
+foldingSolution (GivenTriangleMatrix nums) = ?fold
 
 task18 : (solution: FPSolution) -> Integer
-task18 TailRecursion = ?tailRecursionSolution givenTriangle
-task18 Recursion = recursiveSolution givenTriangle
-task18 Folding = ?foldingSolution givenTriangle
-task18 Mapping = ?mappingSolution givenTriangle
-task18 Loops = ?loopSolution givenTriangle
-task18 InfiniteList = ?infiniteListSolution givenTriangle
+task18 TailRecursion = ?tailRecursionSolution ?givenTriangle_0
+task18 Recursion = recursiveSolution givenTriangleMatrix
+task18 Folding = foldingSolution ?givenTriangle_1
+task18 Mapping = ?mappingSolution ?givenTriangle_2
+task18 Loops = ?loopSolution ?givenTriangle_3
+task18 InfiniteList = ?infiniteListSolution ?givenTriangle_4
 
 main : IO ()
 main = do
