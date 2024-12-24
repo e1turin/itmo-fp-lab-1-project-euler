@@ -5,6 +5,7 @@ import Triangle
 
 %default total
 
+
 data FPSolution
   = TailRecursion
   | Recursion
@@ -12,6 +13,7 @@ data FPSolution
   | Mapping
   | Loops
   | InfiniteList
+
 
 indexMatrixByNat : {hight : Nat} ->
                    {width : Nat} ->
@@ -25,6 +27,7 @@ indexMatrixByNat {hight = n} {width = m} xss i j
   = case (i `isLT` n, j `isLT` m) of
          ((Yes _), (Yes _)) => Just $ xss |> index (natToFinLT i) |> index (natToFinLT j)
          (_, _) => Nothing
+
 
 recursiveSolution : Triangle -> Integer
 recursiveSolution (GivenTriangleMatrix nums) = go nums 0 0
@@ -45,6 +48,7 @@ recursiveSolution (GivenTriangleMatrix nums) = go nums 0 0
 foldingSolution : Triangle -> Integer
 foldingSolution (GivenTriangleMatrix nums) = ?fold
 
+
 task18 : (solution: FPSolution) -> Integer
 task18 TailRecursion = ?tailRecursionSolution ?givenTriangle_0
 task18 Recursion = recursiveSolution givenTriangleMatrix
@@ -52,6 +56,7 @@ task18 Folding = foldingSolution ?givenTriangle_1
 task18 Mapping = ?mappingSolution ?givenTriangle_2
 task18 Loops = ?loopSolution ?givenTriangle_3
 task18 InfiniteList = ?infiniteListSolution ?givenTriangle_4
+
 
 main : IO ()
 main = do
