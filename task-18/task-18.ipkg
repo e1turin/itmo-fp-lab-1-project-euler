@@ -16,7 +16,8 @@ version = 0.1.0
 -- depends =
 
 -- modules to install
--- modules =
+modules = Triangle
+        , Task18Solution
 
 -- main file (i.e. file to load at REPL)
 main = Main

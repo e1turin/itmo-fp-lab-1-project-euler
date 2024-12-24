@@ -1,13 +1,17 @@
 module Triangle
 
 import Data.Vect
-import Data.SnocList
+
 
 public export
 data Triangle : Type where
   GivenTriangleMatrix : (nums: Vect 15 (Vect 15 Integer)) -> Triangle
 
+export
+Show Triangle where
+  show (GivenTriangleMatrix nums) = show nums
 
+--- Special representation of given numbers for convenien usage of dependent types ---
 matrix : Vect 15 (Vect 15 Integer)
 matrix =
   [ [75,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0]
@@ -32,6 +36,7 @@ givenTriangleMatrix : Triangle
 givenTriangleMatrix = GivenTriangleMatrix matrix
 
 
+--- More general representation of given numbers ---
 piramid : List (List Integer)
 piramid =
   [ [75]
@@ -51,6 +56,7 @@ piramid =
   , [ 4, 62, 98, 27, 23,  9, 70, 98, 73, 93, 38, 53, 60,  4, 23]
   ]
 
+-- NOTE: Currently not used, it remains to find more convenient solutions in other ways.
 export
 givenTrianglePiramid : Triangle
 givenTrianglePiramid = ?givenTrianglePiramidCtor piramid
