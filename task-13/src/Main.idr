@@ -1,6 +1,6 @@
 module Main
 
-import Task13Solver
+import Task13Solution
 import Numbers
 
 
