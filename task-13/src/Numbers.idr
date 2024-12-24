@@ -6,6 +6,10 @@ public export
 data Numbers : Type where
   GivenNumbers : (nums : LazyList Integer) -> Numbers
 
+export
+Show Numbers where
+  show (GivenNumbers nums) = show nums
+
 numbers : LazyList Integer
 numbers = 
   [ 37107287533902102798797998220837590246510135740250
