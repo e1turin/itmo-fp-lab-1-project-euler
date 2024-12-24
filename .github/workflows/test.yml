@@ -1,0 +1,24 @@
+name: Test
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: ghcr.io/stefan-hoeck/idris2-pack:latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Typechecking
+        run: |
+          pack typecheck task-13
+          pack typecheck task-18
+      - name: Testing
+        run: |
+          pack test task-18
+          pack test task-13
+
+
