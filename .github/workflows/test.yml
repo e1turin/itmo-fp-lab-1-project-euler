@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Typechecking
+      - name: Type checking
         run: |
           pack typecheck task-13
           pack typecheck task-18
