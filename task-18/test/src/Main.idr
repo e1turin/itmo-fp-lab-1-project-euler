@@ -34,7 +34,7 @@ propFolding = property $ do
 
 main : IO ()
 main = test
-  [ "task-13 solutions smoke tests" `MkGroup`
+  [ "task-18 solutions smoke tests" `MkGroup`
     [ ("Recursion Prop", propRecursion)
     -- , ("Folding Prop",   propFolding)
     ]

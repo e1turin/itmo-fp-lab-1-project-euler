@@ -38,10 +38,10 @@ propFolding = property $ do
 
 
 main : IO ()
-main = test . pure $
-  MkGroup
-    "task-13 tests"
+main = test
+  [ "task-13 solutions smoke tests" `MkGroup`
     [ ("Tail Recursion Prop", propTailRecursion)
     , ("Recursion Prop",      propRecursion)
     , ("Folding Prop",        propFolding)
     ]
+  ]
