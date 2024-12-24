@@ -51,3 +51,15 @@ curl -L -O https://raw.githubusercontent.com/idris-lang/Idris2/refs/heads/main/.
 # or
 echo -e 'GET /idris-lang/Idris2/refs/heads/main/.editorconfig HTTP/1.0\nHost: raw.githubusercontent.com\n\n' | openssl s_client -quiet -connect raw.githubusercontent.com:443 2>/dev/null | sed '0,/^\s*$/d' > .editorconfig
 ```
+
+По какой-то причине `idris2-lsp` не воспринимает пакеты, которые установил
+`pack` в свои пути (`$PACK_DIR`), в частности модули `test` не могут найти
+зависимости на свои модули-пакеты с исходниками. Это решается путем
+самостоятельной установки каждого нужного пакетв в пути idris2: `idris2
+--install path/to/package/config.ipkg`. Похоже, что LSP и pack не получается так
+просто совместить, по этому поводу даже есть ишью:
+- https://github.com/idris-community/idris2-lsp/issues/219 и
+- https://github.com/stefan-hoeck/idris2-pack/issues/292.
+Там предложили в качестве временной меры добавить в переменные окружения для LSP
+пути используемые в pack (см.
+[idris2-lsp_fix-pack](https://github.com/e1turin/itmo-fp/blob/docker/idris2-lsp_fix-pack) -- не работает).
