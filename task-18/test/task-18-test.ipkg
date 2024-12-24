@@ -14,6 +14,7 @@ version = 0.1.0
 
 -- packages to add to search path
 depends = task-18
+        , hedgehog
 
 -- modules to install
 -- modules =
