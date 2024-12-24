@@ -5,23 +5,43 @@ import Data.SOP
 import Data.String
 import Data.Vect
 import Hedgehog
+import Task13Solution
+import Numbers
 
 %default total
 
-charGen : Gen (List Char)
-charGen = list (linear 0 30) alphaNum
+genInput : Gen (Numbers)
+genInput = element [givenNumbers]
 
-propReverse : Property
-propReverse = property $ do
-  xs <- forAll charGen
-  xs === reverse (reverse xs)
+validRes : Integer -> Bool
+validRes x = let 
+  res = x
+  resStr = substr 0 10 (show res)
+  ansStr = show first10DigitsOfSum
+  in resStr == ansStr
 
-checkReverse : IO Bool
-checkReverse = check propReverse
+
+propTailRecursion : Property
+propTailRecursion = property $ do
+  x <- forAll genInput
+  assert $ validRes $ tailRecursiveSolution x
+
+propRecursion : Property
+propRecursion = property $ do
+  x <- forAll genInput
+  assert $ validRes $ recursiveSolution x
+
+propFolding : Property
+propFolding = property $ do
+  x <- forAll genInput
+  assert $ validRes $ foldingSolution x
+
 
 main : IO ()
 main = test . pure $
   MkGroup
-    "test"
-    [ ("kek", propReverse)
+    "task-13 tests"
+    [ ("Tail Recursion Prop", propTailRecursion)
+    , ("Recursion Prop",      propRecursion)
+    , ("Folding Prop",        propFolding)
     ]
