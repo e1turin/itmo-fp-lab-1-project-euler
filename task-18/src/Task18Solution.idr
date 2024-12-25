@@ -1,6 +1,7 @@
 module Task18Solution
 
 import Data.Vect
+import Data.List
 import Triangle
 
 
@@ -42,3 +43,13 @@ recursiveSolution (GivenTriangleMatrix nums) = go nums 0 0
 export
 foldingSolution : Triangle -> Integer
 foldingSolution (GivenTriangleMatrix nums) = ?fold
+
+solvePiramid : List (List Integer) -> Integer
+solvePiramid x = ?head $ ?foldr1 step x -- needs proof that list is not empty
+  where
+    step : List Integer -> List Integer -> List Integer
+    step lowerRow upperRow = 
+      let last = ?tail lowerRow -- needs proof that list is not empty
+          x = zipWith max lowerRow last
+       in zipWith (+) upperRow x
+
