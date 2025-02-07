@@ -18,7 +18,7 @@ tailRecursiveSolution (GivenNumbers nums) = go nums 0
 export
 recursiveSolution : Numbers -> Integer
 recursiveSolution (GivenNumbers []) = 0
-recursiveSolution (GivenNumbers (x :: xs)) = assert_total $ -- TODO: remove assertion somehow
+recursiveSolution (GivenNumbers (x :: xs)) = 
   recursiveSolution (GivenNumbers xs) + x
 
 export
