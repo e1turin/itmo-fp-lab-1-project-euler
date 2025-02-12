@@ -16,7 +16,10 @@ Idris2 ведет себя странно и в MSYS он не хочет соб
 образ Docker с настроенным окружением в виде готового `pack` и установленным
 `idris2-lsp` (см. [docker/Dockerfile.idris2-pack-lsp](./docker/Dockerfile.idris2-pack-lsp)).
 
-Пакетный менеджер `pack` достает информацию о пакетах из системы или из конфигурации в проекте – `pack.toml`, без нее не известно как соотносится имя с пакетом. В конфигурации проекта может указывается путь до локальной конфигурации пакета, где уже описаны зависимости этого пакета и прочее.
+Пакетный менеджер `pack` достает информацию о пакетах из системы или из
+конфигурации в проекте – `pack.toml`, без нее не известно как соотносится имя с
+пакетом. В конфигурации проекта может указывается путь до локальной конфигурации
+пакета, где уже описаны зависимости этого пакета и прочее.
 
 Файлы `.ipkg` позволяют указать в качестве зависимости (`deps`) другие пакеты,
 но чтобы это работало, они должны быть "установлены". Список установленных
@@ -39,29 +42,3 @@ cd workspace/itmo-fp                         # go to project directory
 #pack --with-ipkg=task-13/task-13.ipkg repl   # start repl session for specific package -- can't load source file by somehow...
 pack repl task-13/src/Main.idr  # start repl on specific source file
 ```
-
-Для Idris2 есть неофициальный Style Guide:
-- https://github.com/stefan-hoeck/idris2-style-guide (от создателя `pack`)
-- или другой https://github.com/expede/idris-styleguide.
-
-Так же можно использовать готовый `.editorconfig` (с расширением VS Code
-`EditorConfig.EditorConfig`) из репозитория Idris2:
-```sh
-wget https://raw.githubusercontent.com/idris-lang/Idris2/refs/heads/main/.editorconfig
-# or
-curl -L -O https://raw.githubusercontent.com/idris-lang/Idris2/refs/heads/main/.editorconfig
-# or
-echo -e 'GET /idris-lang/Idris2/refs/heads/main/.editorconfig HTTP/1.0\nHost: raw.githubusercontent.com\n\n' | openssl s_client -quiet -connect raw.githubusercontent.com:443 2>/dev/null | sed '0,/^\s*$/d' > .editorconfig
-```
-
-По какой-то причине `idris2-lsp` не воспринимает пакеты, которые установил
-`pack` в свои пути (`$PACK_DIR`), в частности модули `test` не могут найти
-зависимости на свои модули-пакеты с исходниками. Это решается путем
-самостоятельной установки каждого нужного пакетв в пути idris2: `idris2
---install path/to/package/config.ipkg`. Похоже, что LSP и pack не получается так
-просто совместить, по этому поводу даже есть ишью:
-- https://github.com/idris-community/idris2-lsp/issues/219 и
-- https://github.com/stefan-hoeck/idris2-pack/issues/292.
-Там предложили в качестве временной меры добавить в переменные окружения для LSP
-пути используемые в pack (см.
-[idris2-lsp_fix-pack](https://github.com/e1turin/itmo-fp/blob/docker/idris2-lsp_fix-pack) -- не работает).
